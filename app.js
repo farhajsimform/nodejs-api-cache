@@ -1,9 +1,13 @@
 const express = require('express');
-const redis = require('redis');
+const { rateLimiterUsingThirdParty } = require('./rateLimiter');
+const client = require('./redis');
 const app = express();
 const PORT = 3000;
 
-const client = require('./redis')
+app.use(rateLimiterUsingThirdParty);
+
+
+
 
 // Middleware to cache responses
 const cacheMiddleware = async (req, res, next) => {
